@@ -4,7 +4,7 @@ import { createInsightsMainSwiper } from './insights-main-swiper';
 
 window.fsAttributes = window.fsAttributes || [];
 
-export function insightsCmsAttributes() {
+export function initiateInsightsFsAttributesWithSwiper() {
   window.fsAttributes.push(
     [
       'cmscombine',
