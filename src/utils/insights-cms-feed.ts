@@ -6,10 +6,13 @@ export function insightsCmsFeed() {
   window.fsAttributes.push([
     'cmsnest',
     async (listInstances: CMSList[]) => {
-      console.log('cmsnest Successfully loaded!');
+      const loader = document.querySelector('[data-insights-cms-element="loader"]');
+
       window.fsAttributes.cmscombine.init();
       window.fsAttributes.cmsfilter.init();
       window.fsAttributes.cmssort.init();
+
+      if (loader) loader.classList.add('is-loaded');
     },
   ]);
 }
