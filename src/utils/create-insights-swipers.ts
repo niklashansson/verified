@@ -1,26 +1,58 @@
+import type { CMSList } from 'src/types/CMSList';
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
+window.fsAttributes = window.fsAttributes || [];
 
-export function createInsightsMainSwipers() {
-  const instances = document.querySelectorAll(
-    '[data-swiper-instance="insights-main"]'
-  ) as unknown as HTMLElement[];
-  if (!instances) return;
+const query = '[data-swiper-cms-instance="insights-main"]';
 
-  instances.forEach((instance) => createInsightsMainSwiper(instance));
-  return;
+export function createInsightsSwipers() {
+  window.fsAttributes.cmscombine.init();
+
+  window.fsAttributes.push(
+    [
+      'cmscombine',
+      async (listInstances: CMSList[]) => {
+        listInstances.forEach((instance) => {
+          window.fsAttributes.cmssort.init();
+
+          const swiperInstanceElement = instance.wrapper.closest(query) as unknown as HTMLElement;
+
+          if (!swiperInstanceElement) {
+            instance.wrapper.classList.add('.hide');
+            return;
+          }
+
+          createInsightsSwiper(swiperInstanceElement);
+        });
+      },
+    ],
+    [
+      'cmssort',
+      async () => {
+        const sortTrigger = document.querySelector(
+          '.fs_cmssort_trigger'
+        ) as unknown as HTMLButtonElement;
+
+        const isInsightsSwiper = !!sortTrigger?.closest(query);
+        if (!isInsightsSwiper) return;
+
+        sortTrigger?.click();
+      },
+    ]
+  );
 }
 
 /**
  * Sets up swiper instances for testimonials.
  * @description Attribute: [data-swiper-instance="insights-main"]
  */
-export const createInsightsMainSwiper = (instanceElement: HTMLElement) => {
+export const createInsightsSwiper = (instanceElement: HTMLElement) => {
   const swiperElement = instanceElement.querySelector('.swiper') as unknown as HTMLElement;
   if (!swiperElement) return;
 
   const nextEl = instanceElement.querySelector('.swiper-btn-next') as unknown as HTMLElement;
   const prevEl = instanceElement.querySelector('.swiper-btn-prev') as unknown as HTMLElement;
+  if (!nextEl || !prevEl) return;
 
   return new Swiper(swiperElement, {
     modules: [Navigation],

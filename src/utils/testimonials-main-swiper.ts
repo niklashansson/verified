@@ -15,8 +15,12 @@ export const testimonialsMainSwiper = () => {
     const swiperElement = instance.querySelector('.swiper') as unknown as HTMLElement;
     if (!swiperElement) return;
 
+    const isEmpty = instance.querySelector('.w-dyn-empty') as unknown as HTMLElement;
+    if (isEmpty) return;
+
     const nextEl = instance.querySelector('.swiper-btn-next') as unknown as HTMLElement;
     const prevEl = instance.querySelector('.swiper-btn-prev') as unknown as HTMLElement;
+    if (!nextEl || !prevEl) return;
 
     new Swiper(swiperElement, {
       modules: [Autoplay, Navigation],
