@@ -8,9 +8,11 @@ import { testimonialsMainSwiper } from '$utils/testimonials-main-swiper';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  testimonialsMainSwiper();
-  createInsightsSwipers();
-  initiateDotLottieObservers();
-  insightsCmsFeed();
-  GlobalDialog.init();
+  window.addEventListener('load', () => {
+    testimonialsMainSwiper();
+    createInsightsSwipers();
+    initiateDotLottieObservers();
+    insightsCmsFeed();
+    GlobalDialog.init();
+  });
 });
