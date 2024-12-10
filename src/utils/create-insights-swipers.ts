@@ -56,7 +56,7 @@ export const createInsightsSwiper = (instanceElement: HTMLElement) => {
 
   return new Swiper(swiperElement, {
     modules: [Navigation],
-    slidesPerView: 3,
+    slidesPerView: 1.25,
     spaceBetween: 24,
     speed: 500,
     slideVisibleClass: 'swiper-slide-visible',
